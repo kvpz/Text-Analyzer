@@ -1,0 +1,11 @@
+Work log
+6/12/15
+
+6/22/15
+
+Error:
+./main_wb.cpp:(.text+0x70b): undefined reference to `WordBench::ShowSummary()
+const'
+x86_64-pc-linux-gnu-clang-3.5.0: error: linker command failed with exit code 1
+(use -v to see invocation)
+makefile:13: recipe for target 'wb.x' failed
