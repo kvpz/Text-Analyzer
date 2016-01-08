@@ -35,9 +35,9 @@ private:
   typedef fsu::LessThan  < EntryType >                   PredicateType;
 
   // choose one associative container class for SetType:
-  // typedef fsu::UOList          < EntryType , PredicateType >      SetType;
+   typedef fsu::UOList          < EntryType , PredicateType >      SetType;
   // typedef fsu::MOList          < EntryType , PredicateType >      SetType;
-  typedef fsu::UOVector        < EntryType , PredicateType >      SetType;
+  // typedef fsu::UOVector        < EntryType , PredicateType >      SetType;
   // typedef fsu::MOVector        < EntryType , PredicateType >      SetType;
   // typedef fsu::RBLLT           < EntryType , PredicateType >      SetType;
 
@@ -45,7 +45,6 @@ private:
   SetType                    wordset_;
   fsu::List < fsu::String >  infiles_;
   static void Wordify  (fsu::String&);
-                                                                               
 };
-#include <wordify.cpp> //slave file 
+//#include <wordify.cpp> //slave file 
 #endif

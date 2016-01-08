@@ -1,14 +1,59 @@
-Work log
-6/12/15
+Wordbench log file
 
-6/22/15
-
-Error:
-./main_wb.cpp:(.text+0x70b): undefined reference to `WordBench::ShowSummary()
-const'
+6/29/15
+-Log file overwritten as a result of testing. Do not use log file for testing Wordbench.x.
+-I have a new idea to only accept character in the ascii range of 65
+6/30/15
+wordbench.o: In function `WordBench::ReadText(fsu::String const&)':
+./wordbench.cpp:(.text+0x2cf): undefined reference to
+`WordBench::Wordify(fsu::String&)'
 x86_64-pc-linux-gnu-clang-3.5.0: error: linker command failed with exit code 1
 (use -v to see invocation)
-makefile:13: recipe for target 'wb.x' failed
-Solution:
-Uncommented the ShowSummary() definition in wordbench.cpp
+makefile:13: recipe for target 'wordbench.x' failed
+make: *** [wordbench.x] Error 1
+      Solution was to implement the scope resolution operator:
+      'void WordBench::Wordify(fsu::String& s)' ('static' was also removed)
+-wordify extracts words from strings correctly based on the output from
+cleanup.eg. Using data1.in I discovered that the semicolon at the end of a valid
+word is part of the word; checking if it is a bounds issue or extraction issue.
+     issue:   if(itr == s.Size())
+       	      {
+		stop = itr;
+	      }
+     solution:
+	append (..&& isLetterOrDigit(s.Element(itr-1))) since the last character
+	must be alphanumerical.
+7/1/15
+-Working on the rest of ReadText() after having completed wordify().
+-Testing Unimodal Vector container and it is working properly with data* files.
+-Same files work properly with Unimodal List container. ShowSummary() is working
+ well too. UPDATE: Must fix output formatting.
+-Issue with vocabulary size when reading tiny.txt compared to wordbench_i.x.
+ My program finds 3121 unique words and the other 3151.
+-Issue with wordify continue to occur. Don't think the teacher's program is
+ following the rules. Ignoring wordify until other functions are done.
 
+7/2/15
+-Was able to increase the second template parameter in ElementType.
+-Error found when reading tiny.txt in the report. For example, the teacher's
+ program found 'a' 467 times and mine only 48 times.
+ After testing tiny.txt, I tested cleanup.eg.. There seems to be an issue with wordify.
+ SOlVED: The issue was that EntryType p(word) in ReadText() should have been
+ declared after having cleaned up the string in word.
+
+UOVector has the best complexity.
+
+8/3/15
+Issue with wordify.cpp. It does not count words with apostrophes as a word.
+Issues fixed. Wordbench.cpp has been modified and made more efficient and much
+more clear. Previous implementation have been left. Wordify has also been
+changed plenty.
+
+8/4/15
+Noticed that my wordify may be better than that in wordbench_x.x test provided
+by the professor (unordered list unimodal)
+The difference is that my wordify get '\ds' from '\\\ds' in data6.in and
+Lacher's does not get any sort of ds in the report file.
+I was wrong based on the given rules. If a backslash is the first character
+found, but the second string character is also a backslash, then there is no
+word to be added to the associative container.

@@ -14,3 +14,7 @@ fff. ggg
 \xxx\yyy
 zzz\
 "www\"
+\\\ds
+backslash\\\
+"backslash2\\\"
+'basclash3\\'
